@@ -1,0 +1,31 @@
+{
+  "name": "safdom",
+  "version": "0.0.1",
+  "description": "A set of convenient DOM prototype extensions for latest Chromium.",
+  "main": "src/safdom.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/offshore/safdom.git"
+  },
+  "keywords": [
+    "DOM",
+    "Element",
+    "prototype",
+    "library"
+  ],
+  "author": "Alex Offshore <offshore@aopdg.com> (http://aopdg.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/offshore/safdom/issues"
+  },
+  "homepage": "https://github.com/offshore/safdom#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-uglify": "^0.11.1"
+  },
+  "scripts": {
+    "build": "npm install && grunt"
+  }
+}
