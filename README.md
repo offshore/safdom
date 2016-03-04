@@ -154,27 +154,22 @@ it can be tricky sometimes, so be sure to check documented behavior for appropri
 
 ### Appendix: method name parts cheatsheet
 The dictionary of method names is fairly simple, short and easy to remember; screw those who prefer `WaitForMultipleObjects` over `poll`.
-
-| Part | Description |
-|-|-|
-| attr  | **Attr**ibute-related stuff   |
-| class | Element **class** names       |
-| html  | **HTML** content manipulation |
-| prop  | **Prop**erties                |
-| text  | **Text** content manipulation |
-|||
-| f     | **F**ind *all* elements matching query.                     | NON-live collection       |
-| s     | **S**ingle element that appears first while running query   | Single thing or `null`    |
-| t     | Search by **t**ag name                                      | LIVE collection if not otherwise noted |
-| c     | Search by **c**lass name                                    | LIVE collection if not otherwise noted |
-|||
-| A | Add       |
-| D | Delete    |
-| G | Get       |
-| H | Has       |
-| S | Set       |
-| T | Toggle    |
-| U | Update    |
+- attr: **Attr**ibute-related stuff
+- class: Element **class** names
+- html: **HTML** content manipulation
+- prop: **Prop**erties
+- text: **Text** content manipulation
+- f: **F**ind *all* elements matching query
+- s: **S**ingle element that meets query
+- t: Search by **t**ag name
+- c: Search by **c**lass name
+- A: Add
+- D: Delete
+- G: Get
+- H: Has
+- S: Set
+- T: Toggle
+- U: Update
 
 
 
