@@ -1,6 +1,6 @@
 {
   "name": "safdom",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A set of convenient DOM prototype extensions for latest Chromium.",
   "main": "src/safdom.js",
   "repository": {

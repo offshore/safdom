@@ -16,39 +16,12 @@
 // src.$nss         20+                 --
 // Element.$class*  8+                  --                              Dependent on Element.classList
 
-// A for Add
-// D for Delete
-// G for Get
-// H for Has
-// S for Set
-// T for Toggle
-// U for Update
-
 // Object.assign is not supported by IE w/o polyfill (but Edge has it), others: [Chrome 45+, FF 34+, Opera 32+, Safari 9+]
 // however, the following IS NOT A POLYFILL, just a shorthand
 var extend = Object.assign || function(o) {
     for (var k, ai = 1; a = arguments[ai]; ++ai) for (k in a) if (a.hasOwnProperty(k)) o[k] = a[k];
     return o;
 };
-
-// High-resolution version of console.timer
-var $console = (function() {
-    var prof = new Map(),
-        reNum = /^(\-?\d+\.\d{0,3}|.*)(\d*?)$/;
-
-    return {
-        $time: function(label) {
-            prof.set(label, performance.now());
-        },
-        $timeEnd: function(label) {
-            var val;
-            if (isNaN(val = performance.now() - prof.get(label))) return;
-            var m = val.toPrecision(20).match(reNum);
-            console.log('%chr %s: %s%c%s%cms', 'color:#0000ff;', label, m[1], 'color:#888888;', m[2], 'color:#0000ff;');
-            prof['delete'](label);
-        },
-    };
-});
 
 var $Node = {
     // node position comparison stuff
@@ -79,7 +52,7 @@ var forEach = Array.prototype.forEach, // [FF 1.5+, IE 9+]
 
 var $Arr = {
     // enumeration / collection related utils
-    $each: function(callback, thisArg) { return forEach.call(this, callback, thisArg || this), this; }, // callback(element, index, collection)
+    forEach: function(callback, thisArg) { return forEach.call(this, callback, thisArg || this), this; }, // callback(element, index, collection)
     $slice: Array.prototype.slice, // to transform (live) collections to arrays
 };
 
@@ -162,7 +135,6 @@ var $window = {
 
 // introduce global namespace pollution
 
-extend(console, $console);
 extend(Node.prototype, $Node);
 extend(NodeList.prototype, $Arr);
 extend(HTMLCollection.prototype, $Arr);
