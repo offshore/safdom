@@ -16,15 +16,41 @@ P.S. I know that extending core objects' prototypes is far not a 'best practice'
 but hey. Accept it or leave it. It's a specific thing for a specific case.
 And bear in mind that unlike other browsers, Chromium is immune to performance impact introduced by such approach.
 
-## Install
+## Dive in
 
-You can just `git clone` this repo or use `npm install safdom`.
-The `dist` folder contains minified version and `.map` for it.
-Installation via Bower may be introduced later.
+Just
+```
+npm install safdom
+```
+or
+```
+git clone https://github.com/offshore/safdom.git
+```
 
-Use `npm run build` to rebuild minified version.
+SAFDOM default behavior depends on include method.
+The detection based on variable `module` tested to be in surrounding context.
+See below.
 
-## Usage
+### Browsers / simple
+```html
+<script type="text/javascript" src="path/to/dist/safdom.min.js"></script>
+```
+This just loads SAFDOM and do prototype extension automatically.
+
+### NW.js / advanced
+If your nw.js project is simple single-window application, you can use the browser method already described above.
+But there is one more interesting option available, especially if you open (possibly many) windows dynamically.
+In background context you can do something like this:
+```javascript
+var $SAF = require('safdom');
+// when you open new window, do magic:
+nw.Window.open('someWindow.html', {}, function(someWindow) {
+    $SAF(someWindow.window);
+});
+```
+And then, `someWindow`'s DOM objects got extended.
+
+## API Reference
 
 ### A note on forEach, NodeList and HTMLCollection
 The only unprefixed thing in SAFDOM is a `forEach` method for NodeList and HTMLCollection;
@@ -39,6 +65,9 @@ the only difference is that it returns `list` on which it was called -- for chai
 Another method for NodeList and HTMLCollection is `$slice`, which acts exactly as `Array.slice`
 and can be used to flatten LIVE lists.
 - **`list.$slice(begin, end)`**: same as `Array.prototype.slice.call(list, begin, end)`, returns shallow copied list transformed to plain array
+
+Maybe it's worth switching from `forEach` to `map`, because latter is more suitable for chaining.
+Anyway, I think NodeList and HTMLCollection deserve their own `map` and `reduce` methods.
 
 ### Node comparison
 - **`x.$has(y)`**: same as [`x.contains(y)`](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains)
@@ -142,11 +171,12 @@ it can be tricky sometimes, so be sure to check documented behavior for appropri
 
 ### Globals
 **Selectors**:
-- **`x.$id(id)`**: same as [`document.getElementById(id)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById), returns thing or `null`
-- **`x.$f(selector)`**: same as [`document.querySelectorAll(selector)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll), returns NON-live list
-- **`x.$s(selector)`**: same as [`document.querySelector(selector)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector), returns first match or `null`
-- **`x.$t(tagName)`**: same as [`document.getElementsByTagName(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByTagName), returns LIVE list
-- **`x.$c(className)`**: same as [`document.getElementsByClassName(className)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName), returns LIVE list
+- **`$id(id)`**: same as [`document.getElementById(id)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById), returns thing or `null`
+- **`$f(selector)`**: same as [`document.querySelectorAll(selector)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll), returns NON-live list
+- **`$s(selector)`**: same as [`document.querySelector(selector)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector), returns first match or `null`
+- **`$t(tagName)`**: same as [`document.getElementsByTagName(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByTagName), returns LIVE list
+- **`$c(className)`**: same as [`document.getElementsByClassName(className)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName), returns LIVE list
+
 **Minimal (for now) construction shorthands**:
 - **`x.$mk(tagName)`**: same as [`document.createElement(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
 - **`x.$mkT(textContent)`**: same as [`document.createTextNode(textContent)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
