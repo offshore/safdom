@@ -178,8 +178,8 @@ it can be tricky sometimes, so be sure to check documented behavior for appropri
 - **`$c(className)`**: same as [`document.getElementsByClassName(className)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName), returns LIVE list
 
 **Minimal (for now) construction shorthands**:
-- **`x.$mk(tagName)`**: same as [`document.createElement(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
-- **`x.$mkT(textContent)`**: same as [`document.createTextNode(textContent)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
+- **`$mk(tagName)`**: same as [`document.createElement(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
+- **`$mkT(textContent)`**: same as [`document.createTextNode(textContent)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
 
 
 ### Appendix: method name parts cheatsheet
