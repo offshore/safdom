@@ -33,18 +33,19 @@ See below.
 
 ### Compatibility
 That's a shallow compatibility table for major features; some of browsers' lower versions are not mentioned.
-| Browser   | Version       | Feature           | Dependency |
-|-|-|-|-|
-| Chrome    | **24+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle |
-| Chrome    | 8+            | `.$class*` basic  | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) |
-| FF        | **26+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle |
-| FF        | 13+           | `.$clone(true)`   | [`Node.cloneNode(true)`](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode) |
-| FF        | 9+            | `.$has`           | [`Node.contains`](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains) |
-| FF        | 3.6+          | `.$class*` basic  | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) |
-| IE        | **10+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle |
-| IE        | 9+            |                   | Too many things became available only with IE 9+ |
-| Opera     | 11.5+, **15.0+** | `.$is`         | [`Element.matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) |
-| Safari    | **5.0+**      | `.$is`            | [`Element.matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) |
+
+| Browser   | Version       | Feature           | Dependency
+| --------- | ------------- | ----------------- | ----------
+| Chrome    | **24+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle
+| Chrome    | 8+            | `.$class*` basic  | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+| FF        | **26+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle
+| FF        | 13+           | `.$clone(true)`   | [`Node.cloneNode(true)`](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode)
+| FF        | 9+            | `.$has`           | [`Node.contains`](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains)
+| FF        | 3.6+          | `.$class*` basic  | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+| IE        | **10+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle
+| IE        | 9+            |                   | Too many things became available only with IE 9+
+| Opera     | 11.5+, **15.0+** | `.$is`         | [`Element.matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches)
+| Safari    | **5.0+**      | `.$is`            | [`Element.matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches)
 
 ### Browsers / simple
 ```html
