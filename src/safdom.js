@@ -34,7 +34,7 @@ function _protoNode(ctx) {
 
     return {
     // node position comparison stuff
-    $has: Node.prototype.contains, // THIS is one of parents of ELT => bool [FF 9+, IE 5+, Safari 3+]
+    $has: Node.prototype.contains, // THIS is one of parents of ELT => bool [FF 9+, IE 5+, Safari 3+], https://developer.mozilla.org/en-US/docs/Web/API/Node/contains
     $eq: function(elt) { return this === elt; }, // THIS equals ELT => bool
     $gt: function(elt) { return this.compareDocumentPosition(elt) & DPP; }, // THIS is somewhere after ELT => int [IE 9+]
     $lt: function(elt) { return this.compareDocumentPosition(elt) & DPF; }, // THIS is somewhere before ELT => int [IE 9+]
@@ -70,6 +70,21 @@ function _protoElement(ctx) {
         forEach = ctx.Array.prototype.forEach,
         indexOf = ctx.Array.prototype.indexOf;
 
+    var matches = protoElement.matches || // is matching selector => bool [Chrome 34+, FF 34+, IE ?, Opera 21+, Safari 7.1+], https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
+        protoElement.webkitMatchesSelector || // [Chrome All, Opera 15+]
+        protoElement.mozMatchesSelector || // [FF 3.6+]
+        protoElement.msMatchesSelector || // [IE 9.0+]
+        protoElement.oMatchesSelector || // [Opera 11.5+]
+        protoElement.matchesSelector; // general fallback, if available
+    var closest = protoElement.closest || // closest ancestor of THIS (or THIS itself) which matches selector => Element or null; native: [Chrome 41+, Firefox 35+], https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+        function(selector) { // polyfill depends on .$is / Element.matches
+            var cur = this;
+            do {
+                if (cur.$is(selector)) return cur;
+            } while (cur = cur.parentElement);
+            return null;
+        };
+
     return {
     // attributes
     $attrH: protoElement.hasAttribute,
@@ -82,7 +97,7 @@ function _protoElement(ctx) {
         return this;
     },
 
-    // class [IE10+; Does not support the second parameter for .toggle() and multiple params for .add / .remove]
+    // class [Chrome 24+, IE10+, FF 24+: Lower versions have no support the second parameter for .toggle() and multiple params for .add / .remove, or completely does not support .classList]
     $classA: function() { return dtlA.apply(this.classList, arguments), this; }, // same as $classAM
     $classD: function() { return dtlD.apply(this.classList, arguments), this; }, // same as $classDM
     $classH: function(token) { return this.classList.contains(token); },
@@ -113,8 +128,8 @@ function _protoElement(ctx) {
     $s: protoElement.querySelector, // Single (first) matched element => Element or null [Chrome 1+, FF 3.5+, IE 8+, Opera 10+, Safari 3.2+]
     $t: protoElement.getElementsByTagName, // by Tag name => LIVE HTMLCollection [Chrome 1+, IE 6+]
     $c: protoElement.getElementsByClassName, // by Class name => LIVE HTMLCollection [IE 9+]
-    $is: protoElement.matches, // IS matching selector => bool [Chrome 34+, FF 34+, IE ?, Opera 21+, Safari 7.1+]
-    $closest: protoElement.closest, // closest ancestor of THIS (or THIS itself) which matches selector => Element or null [Chrome 41+, Firefox 35+]
+    $is: matches,
+    $closest: closest,
 
     // traversal utils related to Element (not Node)
     $idx: function() { return indexOf.call(this.parentElement.children || [], this); }, // THIS element index relative to its parent, or -1 if not found or detached
@@ -160,7 +175,8 @@ function $SAF(ctx) { // extend ctx with SAFDOM methods
     $c: document.getElementsByClassName.bind(document), // by Class name => LIVE HTMLCollection [IE 9+]
     $mk: document.createElement.bind(document),
     $mkT: document.createTextNode.bind(document),
-    //TODO $mk*
+    $mkF: document.createDocumentFragment.bind(document),
+    //TODO $mk*, $mkEvent
     });
 };
 

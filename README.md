@@ -1,5 +1,5 @@
 # SAFDOM
-Simple as $uck DOM API shorthands. Fast as hell. Mainly to use with latest Chromium (45+).
+Simple as $uck DOM API shorthands. Fast as hell. Mainly to use with latest Chromium (24+).
 All other browsers compatibility notes in code are JUST FOR REFERENCE, and not all features have such notes.
 It is not intended to be totally cross-browser, although tries to use only general, well-known and compatible calls.
 
@@ -30,6 +30,21 @@ git clone https://github.com/offshore/safdom.git
 SAFDOM default behavior depends on include method.
 The detection based on variable `module` tested to be in surrounding context.
 See below.
+
+### Compatibility
+That's a shallow compatibility table for major features; some of browsers' lower versions are not mentioned.
+| Browser   | Version       | Feature           | Dependency |
+|-|-|-|-|
+| Chrome    | **24+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle |
+| Chrome    | 8+            | `.$class*` basic  | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) |
+| FF        | **26+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle |
+| FF        | 13+           | `.$clone(true)`   | [`Node.cloneNode(true)`](https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode) |
+| FF        | 9+            | `.$has`           | [`Node.contains`](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains) |
+| FF        | 3.6+          | `.$class*` basic  | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) |
+| IE        | **10+**       | `.$class*` full   | [`Element.classList`](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList): several arguments in the add/remove/toggle |
+| IE        | 9+            |                   | Too many things became available only with IE 9+ |
+| Opera     | 11.5+, **15.0+** | `.$is`         | [`Element.matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) |
+| Safari    | **5.0+**      | `.$is`            | [`Element.matches`](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) |
 
 ### Browsers / simple
 ```html
@@ -97,7 +112,7 @@ They all return `x` (except `$clone`, which returns (optionally deep) detached c
 ### Element extensions
 #### Attributes
 - **`x.$attrH(k)`**: same as [`x.hasAttribute(k)`](https://developer.mozilla.org/en-US/docs/Web/API/Element/hasAttribute)
-- **`x.$attrG(k)`**: same as [`x.getAttribute(k)`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute), pay attention to behavior notes
+- **`x.$attrG(k)`**: same as [`x.getAttribute(k)`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute), pay attention to behavior notes in MDN related to return value and lowercasing
 - **`x.$attrS(k, v)`**: same as [`x.setAttribute(k, v)`](https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute), but returns x for chaining
 - **`x.$attrD(k, k, ...)`**: same as [`x.removeAttribute(k)`](https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute) for each argument, but returns x for chaining
 - **`x.$attrU(k, v)`**: $attrD when v == null, $attrS otherwise
@@ -158,7 +173,8 @@ it can be tricky sometimes, so be sure to check documented behavior for appropri
 - **`x.$ps()`**: just return `x.previousElementSibling`
 - **`x.$ns()`**: just return `x.nextElementSibling`
 
-**Deprecated for now** due to naming problem and tricky nature. Most likely be renamed to `$psa` and `$nsa`, or even be completely cut:
+**Deprecated for now** due to naming problem and tricky nature (uses css4 `:scope` and index detection, not mentioned in compatibility table).
+Most likely be renamed to `$psa` and `$nsa`, or even be completely cut:
 - **`x.$pss()`**: find all siblings between (and including if not null) `x.parentElement.firstElementChild` and `x.previousElementSibling`, returns NONlive list
 - **`x.$nss()`**: find all siblings between (and including if not null) `x.nextElementSibling` and `x.parentElement.lastElementChild`, returns NONlive list
 
@@ -180,6 +196,7 @@ it can be tricky sometimes, so be sure to check documented behavior for appropri
 **Minimal (for now) construction shorthands**:
 - **`$mk(tagName)`**: same as [`document.createElement(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
 - **`$mkT(textContent)`**: same as [`document.createTextNode(textContent)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
+- **`$mkF()`**: same as [`document.createDocumentFragment()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createDocumentFragment)
 
 
 ### Appendix: method name parts cheatsheet

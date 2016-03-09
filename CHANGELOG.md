@@ -1,5 +1,11 @@
 # SAFDOM changelog
 
+## 0.2.1 (2016-03-09)
+* Included fallback for Element.contains, minimal Chrome version is now 24+
+* Included fallback for Element.matches
+* $mkF for document.createDocumentFragment
+* Documentation fixes and compatibility table
+
 ## 0.2.0 (2016-03-05)
 * Different behavior for various environments
 * Documentation fixes
