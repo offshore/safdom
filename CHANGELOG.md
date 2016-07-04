@@ -1,5 +1,15 @@
 # SAFDOM changelog
 
+## 0.2.2 (2016-07-01)
+* Included $rect and $rects, which are aliases for Element.getBoundingClientRect and Element.getClientRects, respectively.
+* Included minimalistic getComputedStyle utility as Element.$cs
+* New global: $meta, which I suppose to use for utility methods such as browser/window/context/viewport/document utils/stats detection/manipulation. Kinda messy.
+* Methods for main viewport inspection in $meta (client/inner/scroll-related dimensions)
+* $meta.se() to polyfill document.scrollingElement via https://github.com/mathiasbynens/document.scrollingElement
+* So, the as noted in library description, it is still optimized for Chromium; I realize that wider browser support is needed, so in future some shims will be introduced.
+* Therefore, SAFDOM API is about to change: at least, all globals most likely will be migrated into one global `$SAF` object and something like jQuery.noConflict provided to handle special cases.
+* Also planned: utils/aliases (NOT POLYFILLS OR SHIMS) for custom Elements, HTML Templates, Shadow DOM and HTML Imports.
+
 ## 0.2.1 (2016-03-09)
 * Included fallback for Element.contains, minimal Chrome version is now 24+
 * Included fallback for Element.matches

@@ -3,6 +3,8 @@ Simple as $uck DOM API shorthands. Fast as hell. Mainly to use with latest Chrom
 All other browsers compatibility notes in code are JUST FOR REFERENCE, and not all features have such notes.
 It is not intended to be totally cross-browser, although tries to use only general, well-known and compatible calls.
 
+**API IS ABOUT TO CHANGE in future releases, so use at your own risk, or use fixed version**
+
 I'm using it with my [nw.js](http://nwjs.io/) projects to get totally rid of jQuery (which is VERY SLOW and bloated for such use),
 while having convinient tool for querying CSS selectors, DOM traversal and manipulations.
 
@@ -51,6 +53,11 @@ That's a shallow compatibility table for major features; some of browsers' lower
 ```html
 <script type="text/javascript" src="path/to/dist/safdom.min.js"></script>
 ```
+or CDN:
+```html
+<script type="text/javascript" src="//npmcdn.com/safdom@0.2.2/dist/safdom.min.js"></script>
+```
+
 This just loads SAFDOM and do prototype extension automatically.
 
 ### NW.js / advanced
@@ -179,8 +186,17 @@ Most likely be renamed to `$psa` and `$nsa`, or even be completely cut:
 - **`x.$pss()`**: find all siblings between (and including if not null) `x.parentElement.firstElementChild` and `x.previousElementSibling`, returns NONlive list
 - **`x.$nss()`**: find all siblings between (and including if not null) `x.nextElementSibling` and `x.parentElement.lastElementChild`, returns NONlive list
 
+#### More utils
+- **`x.$cs(pseudoElt)`**: same as [`window.getComputedStyle(x, pseudoElt)`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
+- **`x.$rect()`**: same as [`x.getBoundingClientRect()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)
+- **`x.$rects()`**: same as [`x.getClientRects()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getClientRects)
+
+See also `$meta.px()`/`$meta.py()`.
+
 ### EventTarget shorthands
 **Only minimal set of utilities for now**
+Note that EventTarget.prototype is not consistently available, so fo browsers like IE, SAFDOM extends only `window`, `window.document` and `Node.prototype` with related methods,
+leaving other thing like XMLHttpRequest unmodified.
 - **`x.$on(event, handler)`**: same as [`x.addEventListener(event, handler, false)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), but returns x for chaining
 - **`x.$onc(event, handler)`**: capturing version for `$on`
 - **`x.$off(event, handler)`**: same as [`x.removeEventListener(event, handler, false)`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener), but returns x for chaining
@@ -198,6 +214,16 @@ Most likely be renamed to `$psa` and `$nsa`, or even be completely cut:
 - **`$mk(tagName)`**: same as [`document.createElement(tagName)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
 - **`$mkT(textContent)`**: same as [`document.createTextNode(textContent)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
 - **`$mkF()`**: same as [`document.createDocumentFragment()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createDocumentFragment)
+
+**`$meta`**
+It really hurts when you try to determine, which element is actually the main scrolling thing, `html` or `body`.
+Here, take some utils to minimize the pain.
+- **`$meta.se()`**: utility to get [`document.scrollingElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/scrollingElement). Includes cross-browser shim via [https://github.com/mathiasbynens/document.scrollingElement], which is partially rewritten and optimized to be fully transparent in Chromium.
+- **`$meta.slG()`, `$meta.slS(), $meta.stG()`, `$meta.stS()`: on document.scrollingElement: get scrollLeft, set scrollLeft, get scrollTop, set scrollTop -- respectively
+- **`$meta.vw()`, $meta.vh()**: viewport width/height (INCLUDING vertical/horisontal scrollbar, if present)
+- **`$meta.cw(), $meta.ch()`**: client width/height (EXCLUDING vertical/horisontal scrollbar, if present)
+- **`$meta.sw(), $meta.sh()`**: scroll width/height
+- **`$meta.px(), $meta.py()`**: viewport pageXOffset/pageXOffset to use with `Element.$rect`/`Element.$rects` (in general, this is not the same as scrollLeft/scrollTop, but workaround included; see also [https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY])
 
 
 ### Appendix: method name parts cheatsheet
@@ -218,6 +244,3 @@ The dictionary of method names is fairly simple, short and easy to remember; scr
 - S: Set
 - T: Toggle
 - U: Update
-
-
-
