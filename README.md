@@ -220,11 +220,11 @@ leaving other thing like XMLHttpRequest unmodified.
 It really hurts when you try to determine, which element is actually the main scrolling thing, `html` or `body`.
 Here, take some utils to minimize the pain.
 - **`$meta.se()`**: utility to get [`document.scrollingElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/scrollingElement). Includes cross-browser shim via [https://github.com/mathiasbynens/document.scrollingElement], which is partially rewritten and optimized to be fully transparent in Chromium.
-- **`$meta.slG()`, `$meta.slS(), $meta.stG()`, `$meta.stS()`: on document.scrollingElement: get scrollLeft, set scrollLeft, get scrollTop, set scrollTop -- respectively
-- **`$meta.vw()`, $meta.vh()**: viewport width/height (INCLUDING vertical/horisontal scrollbar, if present)
-- **`$meta.cw(), $meta.ch()`**: client width/height (EXCLUDING vertical/horisontal scrollbar, if present)
-- **`$meta.sw(), $meta.sh()`**: scroll width/height
-- **`$meta.px(), $meta.py()`**: viewport pageXOffset/pageXOffset to use with `Element.$rect`/`Element.$rects` (in general, this is not the same as scrollLeft/scrollTop, but workaround included; see also [https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY])
+- **`$meta.slG()`, `$meta.slS()`, `$meta.stG()`, `$meta.stS()`: on document.scrollingElement: get scrollLeft, set scrollLeft, get scrollTop, set scrollTop -- respectively
+- **`$meta.vw()`, `$meta.vh()`**: viewport width/height (INCLUDING vertical/horisontal scrollbar, if present)
+- **`$meta.cw()`, `$meta.ch()`**: client width/height (EXCLUDING vertical/horisontal scrollbar, if present)
+- **`$meta.sw()`, `$meta.sh()`**: scroll width/height
+- **`$meta.px()`, `$meta.py()`**: viewport pageXOffset/pageXOffset to use with `Element.$rect`/`Element.$rects` (in general, this is not the same as scrollLeft/scrollTop, but workaround included; see also [https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY])
 
 
 ### Appendix: method name parts cheatsheet
