@@ -215,7 +215,7 @@ leaving other thing like XMLHttpRequest unmodified.
 - **`$mkT(textContent)`**: same as [`document.createTextNode(textContent)`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
 - **`$mkF()`**: same as [`document.createDocumentFragment()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createDocumentFragment)
 
-**`$meta`**
+**`$meta`**:
 It really hurts when you try to determine, which element is actually the main scrolling thing, `html` or `body`.
 Here, take some utils to minimize the pain.
 - **`$meta.se()`**: utility to get [`document.scrollingElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/scrollingElement). Includes cross-browser shim via [https://github.com/mathiasbynens/document.scrollingElement], which is partially rewritten and optimized to be fully transparent in Chromium.
