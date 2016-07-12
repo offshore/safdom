@@ -1,5 +1,9 @@
 # SAFDOM changelog
 
+## 0.2.3 (2016-07-12)
+* Considered unuseful in $meta and has been cut: sl*, st*, vw, vh, cw, ch, sw, sh. Use respective `scrollLeft`, `scrollHeight`, etc on `$meta.se()`.
+* The scrollingElement accessor `$meta.se()` now caches it's return value. Use `$meta.seReread()` to flush it (I guess it's useful for weird setups only).
+
 ## 0.2.2 (2016-07-01)
 * Included $rect and $rects, which are aliases for Element.getBoundingClientRect and Element.getClientRects, respectively.
 * Included minimalistic getComputedStyle utility as Element.$cs

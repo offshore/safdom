@@ -35,7 +35,7 @@ function _util_compatMode(ctx) {
 // see also: http://www.quirksmode.org/mobile/tableViewport.html
 function _util_mkScrollingElementGetter(ctx) {
     var document = ctx.document;
-    if ('scrollingElement' in document) return function() { return document.scrollingElement; }; // woohoo, simple case
+    if ('scrollingElement' in document) return true; // woohoo, simple case, no dedicated getter needed
     // Well, we need a runtime detector for that. So frustrating.
     var isBodyElement = ctx.HTMLBodyElement
         ? function(elt) { return elt instanceof HTMLBodyElement; }
@@ -232,20 +232,27 @@ function _protoEventTarget(ctx) {
 // browser/window/context/viewport/document utils/stats
 function _meta(ctx) {
     var extend = _extend(ctx),
-        getSE = _util_mkScrollingElementGetter(ctx);
-        meta = {
+        getSE = _util_mkScrollingElementGetter(ctx),
+        scrollingElement,
+        meta = {};
+
+    if (getSE === true) { // no magic needed
+        getSE = function() { return document.scrollingElement; };
+        extend(meta, {
+            seReread: getSE,
             se: getSE,
-            slG: function() { return getSE().scrollLeft; }, // scrollLeft
-            slS: function(scrollLeft) { return (getSE().scrollLeft = scrollLeft), meta; },
-            stG: function() { return getSE().scrollTop; }, // scrollTop
-            stS: function(scrollTop) { return (getSE().scrollTop = scrollTop), meta; },
-            vw: function() { return ctx.innerWidth; }, // viewport width (disregarding vertical scrollbar)
-            vh: function() { return ctx.innerHeight; }, // viewport height (disregarding horisontal scrollbar)
-            cw: function() { return getSE().clientWidth; }, // client width (vw - vertical scrollbar width, if present)
-            ch: function() { return getSE().clientHeight; }, // client height (vh - horisontal scrollbar width, if present)
-            sw: function() { return getSE().scrollWidth; }, // scroll width
-            sh: function() { return getSE().scrollHeight; }, // scroll height
-        };
+        });
+    } else {
+        extend(meta, {
+            seReread: function() { return scrollingElement = getSE(); },
+            se: function() {
+                if (ctx.document.readyState != 'loading') {
+                    meta.se = function() { return scrollingElement; };
+                }
+                return meta.seReread(); // warmup
+            }
+        });
+    }
 
     // pageXYoffset to use with $rect(s)
     // see https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
@@ -254,8 +261,8 @@ function _meta(ctx) {
         py: function() { return ctx.pageYOffset; },
     });
     else extend(meta, {
-        px: function() { return getSE().scrollLeft; },
-        py: function() { return getSE().scrollTop; },
+        px: function() { return meta.se().scrollLeft; },
+        py: function() { return meta.se().scrollTop; },
     });
 
     return meta;
