@@ -219,8 +219,8 @@ leaving other thing like XMLHttpRequest unmodified.
 
 It really hurts when you try to determine, which element is actually the main scrolling thing, `html` or `body`.
 Here, take this painkiller.
-- **`$meta.se()`**: utility to get [`document.scrollingElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/scrollingElement). Includes cross-browser shim via [https://github.com/mathiasbynens/document.scrollingElement], which is partially rewritten and optimized to be fully transparent in Chromium. This method caches it's return value, so the steps to detect scrollingElement are not performed once `document.readyState` is no more `loading`. I guess it's useful for weird setups only, but if you need to flush this cache, call `$meta.seReread()`.
-- **`$meta.px()`, `$meta.py()`**: viewport pageXOffset/pageXOffset to use with `Element.$rect`/`Element.$rects` (in general, this is not the same as scrollLeft/scrollTop, but workaround included; see also [https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY]). Note that this functions are affected by scrollingElement cache (see `$meta.se()`).
+- **`$meta.se()`**: utility to get [`document.scrollingElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/scrollingElement). Includes cross-browser shim via https://github.com/mathiasbynens/document.scrollingElement, which is partially rewritten and optimized to be fully transparent in Chromium. This method caches it's return value, so the steps to detect scrollingElement are not performed once `document.readyState` is no more `loading`. I guess it's useful for weird setups only, but if you need to flush this cache, call `$meta.seReread()`.
+- **`$meta.px()`, `$meta.py()`**: viewport pageXOffset/pageXOffset to use with `Element.$rect`/`Element.$rects` (in general, this is not the same as scrollLeft/scrollTop, but workaround included; see also https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY). Note that this functions are affected by scrollingElement cache (see `$meta.se()`).
 
 
 ### Appendix: method name parts cheatsheet
