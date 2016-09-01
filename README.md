@@ -55,7 +55,7 @@ That's a shallow compatibility table for major features; some of browsers' lower
 ```
 or CDN:
 ```html
-<script type="text/javascript" src="//npmcdn.com/safdom@0.2.3/dist/safdom.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/safdom@0.2.3/dist/safdom.min.js"></script>
 ```
 
 This just loads SAFDOM and do prototype extension automatically.
